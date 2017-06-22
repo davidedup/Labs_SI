@@ -19,9 +19,9 @@ app.controller("lab02Controller", function ($scope, $http) {
 	}
 
 	$scope.addSerieWatchlist = function (serie) {
-		if($scope.verificaArray(serie, $scope.watchlist)) {
+		if($scope.serieExists(serie, $scope.watchlist)) {
 			alert("A série selecionada já está na sua Watchlist");
-		} else if ($scope.verificaArray(serie, $scope.profile)) {
+		} else if ($scope.serieExists(serie, $scope.profile)) {
 			alert("A série selecionada já está no seu perfil.")
 		} else {
 			$scope.watchlist.push(serie);
@@ -29,14 +29,24 @@ app.controller("lab02Controller", function ($scope, $http) {
 	}
 
 	$scope.addSerieProfile = function (serie) {
-		if ($scope.verificaArray(serie, $scope.profile)) {
+		if ($scope.serieExists(serie, $scope.profile)) {
 			alert("A série selecionada já está no seu perfil.")
 		} else {
-			$scope.watchlist.push(serie);
+			$scope.profile.push(serie);
+			if ($scope.serieExists(serie, $scope.watchlist)) {
+				$scope.removeSerie(serie, $scope.watchlist);
+			}
 		}
 	}
 
-	$scope.verificaArray = function(serie, list) {
+	$scope.removeSerie = function(serie, list) {
+		var index = list.indexOf(serie);
+		if (index > -1) {
+			list.splice(index, 1);
+		}
+	};
+
+	$scope.serieExists = function(serie, list) {
 		return (list.indexOf(serie) != -1);
 	};
 });

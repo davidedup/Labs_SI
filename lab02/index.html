@@ -31,15 +31,32 @@
 							</md-card-header>
 							
 							<!-- aqui vai exibir a lista de series que vai vir na busca. tu precisa ajeitar pra aparecer direitinho
-								 porque eu peguei do teu código, e acho que não tá funcionando ainda -->
-							<div ng-repeat="serie in series track by $index">
+							porque eu peguei do teu código, e acho que não tá funcionando ainda -->
+
+							<md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch ng-repeat="serie in series track by $index">
+								<md-card-title>
+									<md-card-title-text>
+										<span class="md-headline">{{serie.Title}}</span>
+									</md-card-title-text>
+									<md-card-title-media>
+										<img class="md-media-lg card-media" src="{{serie.Poster}}">
+									</md-card-title-media>
+								</md-card-title>
+								<md-card-content layout="row" layout-align="space-between">
+									<md-card-actions layout="row" layout-align="end center">
+										<md-button class="md-raised md-primary" ng-click="addSerieWatchlist(serie)">Watchlist</md-button>
+										<md-button class="md-raised md-primary" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+									</md-card-actions>
+								</md-card-content>
+							</md-card>
+							<!-- <div ng-repeat="serie in series track by $index">
 								<h3>{{serie.Title}}</h3>
 								<img class="imagem" src="{{serie.Poster}}">
 								<h3>
 									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatchlist(serie)" data-target="#myModal">Watchlist</button>
 									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieProfile(serie)" data-target="#myModal">Perfil</button>
 								</h3>
-							</div>
+							</div> -->
 							
 						</md-content>
 					</md-tab>
@@ -52,35 +69,84 @@
 							
 							<!--
 							coloca a lista das series da watchlist aqui
-							-->
-							<br>
-						</md-content>
-					</md-tab>
+						-->
+						<div ng-repeat="serie in watchlist track by $index">
 
-					<!-- aqui a pagina do perfil-->
-					<md-tab label="Perfil">
-						<md-content class="md-padding">
-							<h1 class="md-display-3">Perfil</h1>
-							<br>
-							<!--
-							coloca as coisas do perfil aqui
-							-->
-							<br>
-						</md-content>
-					</md-tab>
+							<md-content class="md-padding" layout-xs="column" layout="row">
+								<div flex-xs flex-gt-xs="50" layout="column">
+									<md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+										<md-card-title>
+											<md-card-title-text>
+												<span class="md-headline">{{serie.Title}}</span>
+											</md-card-title-text>
+											<md-card-title-media>
+												<img class="md-media-lg card-media" src="{{serie.Poster}}">
+											</md-card-title-media>
+										</md-card-title>
+										<md-card-content layout="row" layout-align="space-between">
+											<md-card-actions layout="row" layout-align="end center">
+												<md-button class="md-raised md-primary" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+											</md-card-actions>
+										</md-card-content>
+									</md-card>
+								</div>
+								<div flex-xs flex-gt-xs="50" layout="column">
+								</div>
+							</md-content>
+						</div>
 
-				</md-tabs>
-			</md-content>
-		</div>
-	</md-card>
 
-	<!-- colocados no fim do documento para carregamento mais rapido da pagina -->
-	<script src="lib/angular/angular.min.js"></script>
-	<script src="lib/angular/angular-material.min.js"></script>
-	<script src="lib/angular/angular-animate.min.js"></script>
-	<script src="lib/angular/angular-aria.min.js"></script>
-	<script src="lib/angular/angular-messages.min.js"></script>
-	<script src="assets/js/main.js"></script>
+						<br>
+					</md-content>
+				</md-tab>
+
+				<!-- aqui a pagina do perfil-->
+				<md-tab label="Perfil">
+					<md-content class="md-padding">
+						<h1 class="md-display-3">Perfil</h1>
+						<br>
+						
+						<div ng-repeat="serie in profile track by $index">
+
+							<md-content class="md-padding" layout-xs="column" layout="row">
+								<div flex-xs flex-gt-xs="50" layout="column">
+									<md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+										<md-card-title>
+											<md-card-title-text>
+												<span class="md-headline">{{serie.Title}}</span>
+											</md-card-title-text>
+											<md-card-title-media>
+												<img class="md-media-lg card-media" src="{{serie.Poster}}">
+											</md-card-title-media>
+										</md-card-title>
+										<md-card-content layout="row" layout-align="space-between">
+											<md-card-actions layout="row" layout-align="end center">
+												<md-button class="md-raised md-primary" ng-click="removeSerie(serie, profile)">Remover</md-button>
+											</md-card-actions>
+										</md-card-content>
+									</md-card>
+								</div>
+								<div flex-xs flex-gt-xs="50" layout="column">
+								</div>
+							</md-content>
+						</div>
+
+						<br>
+					</md-content>
+				</md-tab>
+
+			</md-tabs>
+		</md-content>
+	</div>
+</md-card>
+
+<!-- colocados no fim do documento para carregamento mais rapido da pagina -->
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular/angular-material.min.js"></script>
+<script src="lib/angular/angular-animate.min.js"></script>
+<script src="lib/angular/angular-aria.min.js"></script>
+<script src="lib/angular/angular-messages.min.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>
