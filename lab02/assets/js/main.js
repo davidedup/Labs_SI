@@ -1,6 +1,6 @@
-var app = angular.module("lab02", []);
+var app = angular.module("lab02", ['ngMaterial']);
 
-app.controller("lab02Controller", function ($scope,$http) {
+app.controller("lab02Controller", function ($scope, $http) {
 	$scope.app = "Lab02";
 	$scope.series = [];
 	$scope.watchlist = [];
@@ -35,4 +35,8 @@ app.controller("lab02Controller", function ($scope,$http) {
 			$scope.watchlist.push(serie);
 		}
 	}
+
+	$scope.verificaArray = function(serie, list) {
+		return (list.indexOf(serie) != -1);
+	};
 });
