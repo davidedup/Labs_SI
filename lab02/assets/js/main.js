@@ -9,12 +9,12 @@ app.controller("lab02Controller", function ($scope,$http) {
 	$scope.buscarSerie = function (serie) {
 		$http.get("https://omdbapi.com/?s="+ serie +"&apikey=93330d3c&type=series").then(function (response) {
 
-			if(response.data.Responde == "True") {
+			if(response.data.Response == "True") {
 				$scope.series = response.data.Search;
-				delete $scope.serie;
 			} else {
 				alert("A série não foi encontrada");
 			};
+			delete $scope.serie;
 		});
 	}
 
