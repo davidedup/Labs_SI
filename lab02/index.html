@@ -23,7 +23,6 @@
 			<ul class="nav navbar-nav">
 				<li><a href="#home" data-toggle="tab">Página Inicial</a></li>
 				<li><a href="#watchlist" data-toggle="tab">Watchlist</a></li>
-				<li><a href="#search" data-toggle="tab">Buscar Série</a></li>
 				<li><a href="#profile" data-toggle="tab">Perfil</a></li>
 			</ul>
 		</nav>
@@ -72,36 +71,34 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
+
+
+				<div class="jumbotron">
+
+					<input class="form-control" type="text" ng-model="serie" placeholder="Nome da série" />
+
+					<div class="container-fluid">
+						<button type="button" class="btn btn-primary" ng-click="buscarSerie(serie)">Pesquisar</button>
+						<table class="table table-striped">	
+							<div ng-repeat="serie in series track by $index">
+								<h3>{{serie.Title}}</h3>
+								<img class="imagem" src="{{serie.Poster}}">
+								<h3>
+									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatchlist(serie)"  data-target="#myModal">Watchlist</button>
+									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieProfile(serie)" data-target="#myModal">Perfil</button>
+								</h3>
+							</div>
+						</table>
+					</div>
+				</div>
+
 			</div>
+
+
 			<div class="tab-pane fade" id="watchlist">
 			
 
-
-
 			</div>
-			<div class="tab-pane fade" id="search">
-
-				<div class="jumbotron">
-					<h4 ng-bind="app"></h4>
-					<table class="table table-striped">
-					<tr>
-						<th>Série</th>
-					</tr>	
-					<div ng-repeat="serie in series track by $index">
-						<h3>{{serie.Title}}</h3>
-						<img class="imagem" src="{{serie.Poster}}">
-						<h3>
-							<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatchlist(serie)"  data-target="#myModal">Watchlist</button>
-							<button type="button" class="btn btn-info btn-lg" ng-click="addSerieProfile(serie)" data-target="#myModal">Perfil</button>
-						</h3>
-					</div>
-					</table>
-					</hr>
-					<input class="form-control" type="text" ng-model="serie" placeholder="Nome da série" />
-					<button type="button" class="btn btn-primary" ng-click="buscarSerie(serie)">Pesquisar</button>
-				</div>
-			</div>
-
 			<div class="tab-pane fade" id="profile">
 			
 
