@@ -79,16 +79,14 @@
 
 					<div class="container-fluid">
 						<button type="button" class="btn btn-primary" ng-click="buscarSerie(serie)">Pesquisar</button>
-						<table class="table table-striped">	
-							<div ng-repeat="serie in series track by $index">
-								<h3>{{serie.Title}}</h3>
-								<img class="imagem" src="{{serie.Poster}}">
-								<h3>
-									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatchlist(serie)"  data-target="#myModal">Watchlist</button>
-									<button type="button" class="btn btn-info btn-lg" ng-click="addSerieProfile(serie)" data-target="#myModal">Perfil</button>
-								</h3>
-							</div>
-						</table>
+						<div ng-repeat="serie in series track by $index">
+							<h3>{{serie.Title}}</h3>
+							<img class="imagem" src="{{serie.Poster}}">
+							<h3>
+								<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatchlist(serie)"  data-target="#myModal">Watchlist</button>
+								<button type="button" class="btn btn-info btn-lg" ng-click="addSerieProfile(serie)" data-target="#myModal">Perfil</button>
+							</h3>
+						</div>
 					</div>
 				</div>
 
