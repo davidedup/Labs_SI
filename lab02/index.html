@@ -41,8 +41,9 @@
 								</md-card-title>
 								<md-card-content layout="row" layout-align="space-between">
 									<md-card-actions layout="row" layout-align="end center">
-										<md-button class="md-raised md-primary" ng-click="addSerieWatchlist(serie)">Watchlist</md-button>
-										<md-button class="md-raised md-primary" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+										<md-button class="md-raised md-primary md-transclude" ng-click="addSerieWatchlist(serie)">Watchlist</md-button>
+										<md-button class="md-raised md-primary md-transclude" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+										<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 									</md-card-actions>
 								</md-card-content>
 							</md-card>
@@ -72,6 +73,7 @@
 										<md-card-content layout="row" layout-align="space-between">
 											<md-card-actions layout="row" layout-align="end center">
 												<md-button class="md-raised md-primary" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 											</md-card-actions>
 										</md-card-content>
 									</md-card>
@@ -107,6 +109,7 @@
 										</md-card-title>
 										<md-card-content layout="row" layout-align="space-between">
 											<md-card-actions layout="row" layout-align="end center">
+												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 												<md-button class="md-raised md-primary" ng-click="removeSerie(serie, profile)">Remover</md-button>
 											</md-card-actions>
 										</md-card-content>

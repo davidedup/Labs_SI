@@ -1,10 +1,11 @@
 var app = angular.module("lab02", ['ngMaterial']);
 
-app.controller("lab02Controller", function ($scope, $http) {
+app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 	$scope.app = "Lab02";
 	$scope.series = [];
 	$scope.watchlist = [];
 	$scope.profile = [];
+	$scope.dialogSerie = {};
 
 	$scope.buscarSerie = function (serie) {
 		$http.get("https://omdbapi.com/?s="+ serie +"&apikey=93330d3c&type=series").then(function (response) {
@@ -39,7 +40,7 @@ app.controller("lab02Controller", function ($scope, $http) {
 		}
 	}
 
-	$scope.removeSerie = function(serie, list) {
+	$scope.removeSerie = function (serie, list) {
 		if (confirm('Tem certeza que deseja remover "'+serie.Title+'"?') === true) {
 			var index = list.indexOf(serie);
 			if (index > -1) {
@@ -48,7 +49,41 @@ app.controller("lab02Controller", function ($scope, $http) {
 		}
 	};
 
-	$scope.serieExists = function(serie, list) {
+	$scope.serieExists = function (serie, list) {
 		return (list.indexOf(serie) != -1);
 	};
+
+	$scope.verInfo = function (ev, serie) {
+		$http.get("https://omdbapi.com/?i="+ serie.imdbID +"&apikey=93330d3c&type=series").then(function (response) {
+			$scope.serieDialog = response.data;
+			
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'seriesInfo.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true,
+				locals: {
+					serieDialog: $scope.serieDialog
+				}
+			});
+		});
+
+	}
+
+	function DialogController($scope, $mdDialog, serieDialog) {
+		$scope.serie = serieDialog;
+
+		$scope.hide = function() {
+			$mdDialog.hide();
+		};
+
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
+	}
 });
