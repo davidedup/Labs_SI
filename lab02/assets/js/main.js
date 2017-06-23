@@ -40,9 +40,11 @@ app.controller("lab02Controller", function ($scope, $http) {
 	}
 
 	$scope.removeSerie = function(serie, list) {
-		var index = list.indexOf(serie);
-		if (index > -1) {
-			list.splice(index, 1);
+		if (confirm('Tem certeza que deseja remover "'+serie.Title+'"?') === true) {
+			var index = list.indexOf(serie);
+			if (index > -1) {
+				list.splice(index, 1);
+			}
 		}
 	};
 
