@@ -23,7 +23,7 @@
 							<md-card-header>
 								<md-input-container>
 									<input type="text" ng-model="serie.Title" placeholder="Pesquisar série">
-									<md-button class="md-raised md-primary md-transclude" ng-click="buscarSerie(serie.Title)" ng-disabled="!serie.Title">pesquisar</md-button>
+									<md-button class="md-raised md-primary md-transclude" style="margin-left: 200px !important;" ng-click="buscarSerie(serie.Title)" ng-disabled="!serie.Title">pesquisar</md-button>
 									{{serie.Nome}}
 								</md-input-container>
 							</md-card-header>
@@ -71,7 +71,7 @@
 											</md-card-title-media>
 										</md-card-title>
 										<md-card-content layout="row" layout-align="space-between">
-											<md-card-actions layout="row" layout-align="end center">
+											<md-card-actions layout="row" layout-align="end center" style="margin-left: 360px">
 												<md-button class="md-raised md-primary md-transclude" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
 												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 											</md-card-actions>
@@ -102,13 +102,28 @@
 										<md-card-title>
 											<md-card-title-text>
 												<span class="md-headline">{{serie.Title}}</span>
+												<span class="md-subhead" style="margin-top: 20px">
+
+													Último episódio assistido: {{episodiosVistos[$index]}}</br>
+													Sua nota para "{{serie.Title}}": {{notas[$index]}}
+													<md-input-container style="margin-top: 30px; margin-right: 40px">
+														<input type="text" ng-model="episodioVisto" placeholder="Marcar episódio assistido">
+														<md-button class="md-raised md-primary md-transclude" ng-click="marcarEpisodio(episodioVisto, serie)">marcar como assistido</md-button>
+													</md-input-container>
+													<md-input-container style="margin-right: 40px">
+														<input type="text" ng-model="nota" placeholder="Atribuir uma nota à série">
+														<md-button class="md-raised md-primary md-transclude" ng-click="atribuirNota(nota, serie)">atribuir nota</md-button>
+													</md-input-container>
+												</span>
+
 											</md-card-title-text>
 											<md-card-title-media>
 												<img class="md-media-lg card-media" src="{{serie.Poster}}">
 											</md-card-title-media>
 										</md-card-title>
+							
 										<md-card-content layout="row" layout-align="space-between">
-											<md-card-actions layout="row" layout-align="end center">
+											<md-card-actions layout="row" layout-align="end center" style="left: 40px; margin-left: 360px;">
 												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 												<md-button class="md-raised md-primary md-transclude" ng-click="removeSerieProfile(serie)">Remover</md-button>
 											</md-card-actions>
