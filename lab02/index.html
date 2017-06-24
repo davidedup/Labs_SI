@@ -23,7 +23,7 @@
 							<md-card-header>
 								<md-input-container>
 									<input type="text" ng-model="serie.Title" placeholder="Pesquisar série">
-									<md-button class="md-raised md-primary" ng-click="buscarSerie(serie.Title)" ng-disabled="!serie.Title">pesquisar</md-button>
+									<md-button class="md-raised md-primary md-transclude" ng-click="buscarSerie(serie.Title)" ng-disabled="!serie.Title">pesquisar</md-button>
 									{{serie.Nome}}
 								</md-input-container>
 							</md-card-header>
@@ -72,7 +72,7 @@
 										</md-card-title>
 										<md-card-content layout="row" layout-align="space-between">
 											<md-card-actions layout="row" layout-align="end center">
-												<md-button class="md-raised md-primary" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
+												<md-button class="md-raised md-primary md-transclude" ng-click="addSerieProfile(serie)">Minhas séries</md-button>
 												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
 											</md-card-actions>
 										</md-card-content>
@@ -110,7 +110,7 @@
 										<md-card-content layout="row" layout-align="space-between">
 											<md-card-actions layout="row" layout-align="end center">
 												<md-button class="md-raised md-primary md-transclude" ng-click="verInfo($event, serie)">Ver mais</md-button>
-												<md-button class="md-raised md-primary" ng-click="removeSerie(serie, profile)">Remover</md-button>
+												<md-button class="md-raised md-primary md-transclude" ng-click="removeSerieProfile(serie)">Remover</md-button>
 											</md-card-actions>
 										</md-card-content>
 									</md-card>

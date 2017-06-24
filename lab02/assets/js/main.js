@@ -21,11 +21,12 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 
 	$scope.addSerieWatchlist = function (serie) {
 		if($scope.serieExists(serie, $scope.watchlist)) {
-			alert("A série selecionada já está na sua Watchlist");
+			alert('"'+serie.Title+'" já está na sua Watchlist');
 		} else if ($scope.serieExists(serie, $scope.profile)) {
-			alert("A série selecionada já está no seu perfil.")
+			alert('"'+serie.Title+'" já está no seu perfil.')
 		} else {
 			$scope.watchlist.push(serie);
+			alert('"'+serie.Title+'" foi adicionada à sua Watchlist')
 		}
 	}
 
@@ -33,21 +34,34 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 		if ($scope.serieExists(serie, $scope.profile)) {
 			alert("A série selecionada já está no seu perfil.")
 		} else {
-			$scope.profile.push(serie);
 			if ($scope.serieExists(serie, $scope.watchlist)) {
-				$scope.removeSerie(serie, $scope.watchlist);
+				$scope.profile.push(serie);
+				$scope.removeSerieWatchlist(serie);
+				alert('"'+serie.Title+'" foi movida da sua watchlist para o seu perfil.')
+			} else {
+				$scope.profile.push(serie);
+				alert('"'+serie.Title+'" foi adicionada ao seu perfil')
 			}
+
 		}
 	}
 
-	$scope.removeSerie = function (serie, list) {
+	$scope.removeSerieProfile = function (serie) {
 		if (confirm('Tem certeza que deseja remover "'+serie.Title+'"?') === true) {
-			var index = list.indexOf(serie);
-			if (index > -1) {
-				list.splice(index, 1);
+			var indexSerieProfile = $scope.profile.indexOf(serie);
+			if (indexSerieProfile > -1) {
+				$scope.profile.splice(indexSerieProfile, 1);
+				alert('"'+serie.Title+'" foi removida do seu perfil.')
 			}
 		}
 	};
+
+	$scope.removeSerieWatchlist = function (serie) {
+		var indexSerieWatchlist = $scope.watchlist.indexOf(serie);
+		if (indexSerieWatchlist > -1) {
+			$scope.watchlist.splice(indexSerieWatchlist, 1);
+		}
+	}
 
 	$scope.serieExists = function (serie, list) {
 		return (list.indexOf(serie) != -1);
