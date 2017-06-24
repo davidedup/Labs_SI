@@ -66,6 +66,7 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 
 	$scope.removeSerieWatchlist = function (serie) {
 		var indexSerieWatchlist = $scope.watchlist.indexOf(serie);
+		
 		if (indexSerieWatchlist > -1) {
 			$scope.watchlist.splice(indexSerieWatchlist, 1);
 		}
@@ -74,18 +75,19 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 
 	$scope.marcarEpisodio = function (episodio, serie) {
 		var indexEpisodio = $scope.profile.indexOf(serie);
+
 		if (indexEpisodio > -1) {
 			if (Number.isInteger(parseInt(episodio))) {
 				$scope.episodiosVistos[indexEpisodio] = episodio;
 			} else {
 				alert('Por favor, digite apenas o número do episódio visto')
 			}
-
 		}
 	}
 
 	$scope.atribuirNota = function (nota, serie) {
 		var indexNota = $scope.profile.indexOf(serie);
+
 		if (indexNota > -1) {
 			$scope.notas[indexNota] = nota;
 		}
