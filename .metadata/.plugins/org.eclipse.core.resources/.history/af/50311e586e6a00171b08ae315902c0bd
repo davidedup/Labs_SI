@@ -1,0 +1,22 @@
+package com.si1.lab03.dao;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import com.si1.lab03.model.Usuario;
+
+public class UsuarioDAO {
+	private EntityManager entityManager;
+
+	public Usuario verificarUsuario(String email, String senha) {
+		TypedQuery<Usuario> query = entityManager.createQuery("SELECT u FROM Usuario u WHERE u.email=:email", Usuario.class);
+		query.setParameter("email", email);
+		return query.getSingleResult();
+	}
+
+	public void cadastrarUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
