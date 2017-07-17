@@ -2,11 +2,16 @@ package com.si1.lab03.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
 
 import com.si1.lab03.model.Usuario;
 
+@Repository
 public class UsuarioDAO {
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	public Usuario verificarUsuario(String email, String senha) {

@@ -12,7 +12,7 @@ import com.si1.lab03.service.UsuarioService;
 @RequestMapping("/usuario")
 public class UsuarioController {
 	
-private UsuarioService usuarioService;
+	private UsuarioService usuarioService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/login")
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
