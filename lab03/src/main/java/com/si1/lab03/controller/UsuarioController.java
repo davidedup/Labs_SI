@@ -1,5 +1,8 @@
 package com.si1.lab03.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,19 +14,26 @@ import com.si1.lab03.service.UsuarioService;
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
-	private UsuarioService usuarioService;
+	@Autowired
+	UsuarioService usuarioService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/login")
-	public Usuario fazerLogin(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> fazerLogin(@RequestBody Usuario usuario) {
 		usuario = usuarioService.fazerLogin(usuario);
-		return usuario;
+		if (usuario == null) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/")
-	public Usuario cadastrar(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
 		Usuario usuarioCadastrado = usuarioService.cadastrar(usuario);
-		return usuarioCadastrado;
+		if (usuarioCadastrado == null) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
+	
 
 }

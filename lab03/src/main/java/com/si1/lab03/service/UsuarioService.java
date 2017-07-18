@@ -1,23 +1,37 @@
 package com.si1.lab03.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.si1.lab03.dao.UsuarioDAO;
 import com.si1.lab03.model.Usuario;
+import com.si1.lab03.repository.UsuarioRepository;
 
+@Service
 public class UsuarioService {
-
+	
 	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private UsuarioRepository usuarioRepository;
 	
 	public Usuario fazerLogin(Usuario usuario) {
-		Usuario usuarioSalvo = usuarioDAO.verificarUsuario(usuario.getEmail(), usuario.getSenha());
-		return usuarioSalvo;
+		List<Usuario> usuarios = this.usuarioRepository.findAll();
+		for (Usuario user : usuarios) {
+			if (user.getEmail().equals(usuario.getEmail())) {
+				if (user.getSenha().equals(usuario.getSenha()))
+					return usuario;
+			}
+		}
+		return null;
 	}
-
+	
 	public Usuario cadastrar(Usuario usuario) {
-		usuarioDAO.cadastrarUsuario(usuario);
-		return usuario;
+		List<Usuario> usuarios = this.usuarioRepository.findAll();
+		for (Usuario user : usuarios) {
+			if (user.getEmail().equals(usuario.getEmail()))
+				return null;
+		}
+		return this.usuarioRepository.save(usuario);
 	}
 
 }
