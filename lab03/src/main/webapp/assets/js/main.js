@@ -1,19 +1,97 @@
-var app = angular.module("lab02", ['ngMaterial']);
-
-app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
-	$scope.app = "Lab02";
+angular.module("lab03").controller("lab03Controller", function ($scope, $http, $state, $mdDialog) {
+	$scope.app = "Lab03";
 	$scope.series = [];
 	$scope.watchlist = [];
 	$scope.profile = [];
-	$scope.episodiosVistos = [];
-	$scope.notas = [];
+	$scope.exibicao = [];
 	$scope.dialogSerie = {};
+	$scope.inWatchlist = false;
 
+	
+	$scope.register = function(email, password, name){
+	    console.log("register");
+	    var url = "/register";
+	    var data = {
+	      name: name,
+	      email: email,
+	      password: password
+	    };
+
+	    $http.post(url, data).then(function (response) {
+	      $scope.postResultMessage = "Concluído";
+	      alert("Cadastro realizado.");
+
+	    }, function (response) {
+	      $scope.postResultMessage = "Algo deu errado";
+
+	    });
+	};
+	  
+	$scope.login = function(cemail, cpassword){
+	    $scope.profile = [];
+	    $scope.exibicao = [];
+	    $scope.watchlist = [];
+	    var url = "/getin";
+	    var data = {
+	    		email: cemail,
+	    		password: cpassword
+
+		};
+
+	    $http.post(url, data).then(function (response) {
+	    	$scope.postResultMessage = "Olá";
+
+		    $scope.usuarioLogado = response.data.id;
+
+		    $scope.seriesDoUsuario();
+		    $scope.seriesDaWatchlist();
+		    $state.go('main.home');
+		    
+		}, function (response) {
+		});
+
+	};
+	
+	$scope.logout = function(){
+		   $state.go('main.login');
+	}
+
+	$scope.seriesDoUsuario = function() {
+		var url = '/minhasSeries/' + $scope.usuarioLogado;
+
+		$http.get(url).then(function (response) {
+			var seriesPerfil = response.data;
+		    for ( i = 0; i < profile.length; i++)   {
+		    	$http.get("https://omdbapi.com/?i="+ seriesPerfil[i].imdbID +"&apikey=93330d3c&type=series").then(function(response) {
+		    		$scope.profile.push(response.data);
+		    	})
+
+		    }
+		})
+
+	}
+
+	$scope.seriesDaWatchlist = function() {
+		var url = '/minhaWatchlist/' + $scope.usuarioLogado;
+
+		$http.get(url).then(function (response) {
+		    var seriesWatchlist = response.data;
+		    for ( i = 0; i < watchlist.length; i++)   {
+		      $http.get("https://omdbapi.com/?i="+ seriesWatchlist[i].imdbID +"&apikey=93330d3c&type=series").then(function(response) {
+		        $scope.watchlist.push(response.data);
+		      })
+
+		    }
+
+		})
+	}
+	
 	$scope.buscarSerie = function (serie) {
 		$http.get("https://omdbapi.com/?s="+ serie +"&apikey=93330d3c&type=series").then(function (response) {
 
 			if(response.data.Response == "True") {
 				$scope.series = response.data.Search;
+				$scope.exibicao = $scope.series;
 			} else {
 				alert("A série não foi encontrada");
 			};
@@ -28,9 +106,24 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 			alert('"'+serie.Title+'" já está no seu perfil.')
 		} else {
 			$scope.watchlist.push(serie);
+			$scope.addWatchlist(serie);
 			alert('"'+serie.Title+'" foi adicionada à sua Watchlist')
 		}
 	}
+	
+	$scope.addWatchlist = function(serie) {
+		  $scope.inWatchlist = true;
+		  var data = {
+		    idUsuario: $scope.usuarioLogado,
+		    imdbId: serie.imdbID,
+		    nome: serie.Title,
+		    inWatchlist: $scope.inWatchlist,
+		  };
+		  var url = "/saveWatchlist";
+		  $http.post(url, data).then(function (response) {
+		  }, function (response) {
+		  });
+		}
 
 	$scope.addSerieProfile = function (serie) {
 		if ($scope.serieExists(serie, $scope.profile)) {
@@ -38,61 +131,74 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 		} else {
 			if ($scope.serieExists(serie, $scope.watchlist)) {
 				$scope.profile.push(serie);
-				$scope.episodiosVistos.push(0);
-				$scope.notas.push(0);
+				$scope.inWatchlist = false;
+				$scope.add(serie);
 				$scope.removeSerieWatchlist(serie);
 				alert('"'+serie.Title+'" foi movida da sua watchlist para o seu perfil.')
 			} else {
 				$scope.profile.push(serie);
-				$scope.episodiosVistos.push(0);
-				$scope.notas.push(0);
+				$scope.add(serie);
 				alert('"'+serie.Title+'" foi adicionada ao seu perfil')
 			}
 
 		}
 	}
+	
+	$scope.add = function(serie) {
+		$scope.inWatchlist = false;
+		var data = {
+		    idUsuario: $scope.usuarioLogado,
+		    imdbId: serie.imdbID,
+		    nome: serie.Title,
+		    inWatchlist: $scope.inWatchlist,
+		  };
+		  var url = "/save";
+		  $http.post(url, data).then(function (response) {
+		  }, function (response) {
+		  });
+		}
 
+	
+	$scope.removeDaWatchlist = function (serie) {
+		var indexSerieWatchlist = $scope.watchlist.indexOf(serie);
+		
+		if (indexSerieWatchlist > -1) {
+			$scope.watchlist.splice(indexSerieWatchlist, 1);
+		    $scope.watchlist.splice(indexSerieWatchlist, 1);
+		  }
+		  $scope.inWatchlist = false;
+	}
+
+	$scope.removeSerieWatchlist = function(serie){
+	  var url = "/removeWatchlist/" + $scope.usuarioLogado;
+	  $http.post(url, serie.imdbID).then(function(response){
+	  }, function(response){
+	  });
+	};	
+	
 	$scope.removeSerieProfile = function (serie) {
 		if (confirm('Tem certeza que deseja remover "'+serie.Title+'"?') === true) {
 			var indexSerieProfile = $scope.profile.indexOf(serie);
 			if (indexSerieProfile > -1) {
 				$scope.profile.splice(indexSerieProfile, 1);
-				$scope.episodiosVistos.splice(indexSerieProfile, 1);
-				$scope.notas.splice(indexSerieProfile, 1);
+				$scope.remove(serie);
 				alert('"'+serie.Title+'" foi removida do seu perfil.')
 			}
 		}
 	};
 
-	$scope.removeSerieWatchlist = function (serie) {
-		var indexSerieWatchlist = $scope.watchlist.indexOf(serie);
-		
-		if (indexSerieWatchlist > -1) {
-			$scope.watchlist.splice(indexSerieWatchlist, 1);
-		}
-	}
+	$scope.remove = function(serie){
+		  var url = "/remove/" + $scope.usuarioLogado;
+		  $http.post(url, serie.imdbID).then(function(response){
 
+		  }, function(response){
+		  });
+		};
 
-	$scope.marcarEpisodio = function (episodio, serie) {
-		var indexEpisodio = $scope.profile.indexOf(serie);
-
-		if (indexEpisodio > -1) {
-			if (Number.isInteger(parseInt(episodio))) {
-				$scope.episodiosVistos[indexEpisodio] = episodio;
-			} else {
-				alert('Por favor, digite apenas o número do episódio visto')
-			}
-		}
-	}
-
-	$scope.atribuirNota = function (nota, serie) {
-		var indexNota = $scope.profile.indexOf(serie);
-
-		if (indexNota > -1) {
-			$scope.notas[indexNota] = nota;
-		}
-	}
-
+	$scope.serieExists = function (serie, list) {
+		return (list.indexOf(serie) != -1);
+	};
+	
 	$scope.verInfo = function (ev, serie) {
 		$http.get("https://omdbapi.com/?i="+ serie.imdbID +"&apikey=93330d3c&type=series").then(function (response) {
 			$scope.serieDialog = response.data;
@@ -110,10 +216,6 @@ app.controller("lab02Controller", function ($scope, $http, $mdDialog) {
 		});
 
 	}
-
-	$scope.serieExists = function (serie, list) {
-		return (list.indexOf(serie) != -1);
-	};
 
 	function DialogController($scope, $mdDialog, serieDialog) {
 		$scope.serie = serieDialog;

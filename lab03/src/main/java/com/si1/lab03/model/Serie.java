@@ -15,14 +15,14 @@ public class Serie {
 	private String avaliacao;
 	private Integer ultimoEpisodio;
 	private Long idUsuario;
-	private boolean perfil;
+	private boolean inWatchlist;
 	
 	
-	public boolean noPerfil() {
-		return perfil;
+	public boolean naWatchlist() {
+		return inWatchlist;
 	}
-	public void setPerfil(boolean perfil) {
-		this.perfil = perfil;
+	public void setWatchlist(boolean perfil) {
+		this.inWatchlist = perfil;
 	}
 	public Integer getId() {
 		return id;

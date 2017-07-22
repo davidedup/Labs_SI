@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
-			<item value="E:\Users\petcomputacao_2\Documents\thalyta\Labs_SI\lab03"/>
 			<item value="C:\Users\Thalyta\Desktop\CC\Labs_SI\lab03"/>
+			<item value="E:\Users\petcomputacao_2\Documents\thalyta\Labs_SI\lab03"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
