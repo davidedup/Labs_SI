@@ -3,51 +3,63 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script><link rel="stylesheet" href="css/login.css">
-<section class="main-container">
-        <div class="container">
-            <div class="row">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-               <div class="header-content text-center">
-                    <h1 class="header-title">Lab 03</h1>
-                </div>
+
+<md-content class="md-padding">
+    <div class="col-sm-3 col-md-6">
+        <section class="main-container">
+        <md-content class="md-padding" layout-xs="column" layout="row">
+            <div flex-xs flex-gt-xs="100" layout="column">
+                <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Registre-se</span>
+                            <span class="md-subhead">
+                                <md-input-container>
+                                    <input type="email" ng-model="email" placeholder="Email" required>
+                                </md-input-container>
+                                <md-input-container>
+                                    <input type="text" ng-model="username" placeholder="Nome de usuario" required>
+                                </md-input-container>
+                                    <md-input-container>
+                                    <input type="password" ng-model="password" placeholder="Senha" required>    
+                                </md-input-container>
+                            </span>
+                        </md-card-title-text>
+                    </md-card-title>
+                                
+                    <md-card-content layout="row" layout-align="space-between">
+                        <md-card-actions layout="row" layout-align="end center" style="margin-left: 320px">
+                            <md-button class="md-raised md-primary md-transclude" ng-click="register(email, password, username)">Cadastrar</md-button>
+                        </md-card-actions>
+                    </md-card-content>
+                </md-card>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-7">
-                <div class="form-block">
-                    <h2>Registre-se</h2>
-                    <div class="form">
-                        <form >
-                        	<div class="form-group">
-                        		<input type="email" class="form-control" placeholder="Email" ng-model="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" ng-model="username"  name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Senha" ng-model="password" name="password" required>
-                            </div>
-                            <button type="submit" ng-click="register(email, password, username)" class="btn btn-success">Registrar</button>
-                        </form>
-                    </div>
-                </div>
+        </md-content>
+        <md-content class="md-padding" layout-xs="column" layout="row">
+            <div flex-xs flex-gt-xs="100" layout="column">
+                <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Login</span>
+                            <span class="md-subhead">
+                                <md-input-container>
+                                    <input type="email" ng-model="email" placeholder="Email" required>
+                                </md-input-container>
+                                <md-input-container>
+                                    <input type="password" ng-model="password" placeholder="Senha" required>    
+                                </md-input-container>
+                            </span>
+                        </md-card-title-text>
+                    </md-card-title>
+                                
+                    <md-card-content layout="row" layout-align="space-between">
+                        <md-card-actions layout="row" layout-align="end center" style="margin-left: 320px">
+                            <md-button class="md-raised md-primary md-transclude" ng-click="login(email, password)">Login</md-button>
+                        </md-card-actions>
+                    </md-card-content>
+                </md-card>
             </div>
-            <div class="col-md-5">
-                <div class="form-block">
-                   <h2>Login</h2>
-                   <div class="form">
-                        <form >
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="email" ng-model="cemail" placeholder="Email" name="cemail">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="pwd" ng-model="cpassword" placeholder="Senha" name="cpassword">
-                            </div>
-                            <button type="submit"  ng-click="login(cemail, cpassword)" class="btn btn-sucess">Entrar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </md-content>
+        </section>
     </div>
-</section>
+</md-content>

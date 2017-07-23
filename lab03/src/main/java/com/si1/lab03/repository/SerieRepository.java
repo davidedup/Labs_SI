@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.si1.lab03.model.Serie;
 
 @Repository
-public interface SerieRepository extends JpaRepository<Serie, Integer>{
+public interface SerieRepository extends JpaRepository<Serie, Long>{
 
 }

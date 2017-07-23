@@ -9,7 +9,7 @@ public class Serie {
 
 	@Id
 	@GeneratedValue()
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String imdbId;
 	private String avaliacao;
@@ -24,10 +24,10 @@ public class Serie {
 	public void setWatchlist(boolean perfil) {
 		this.inWatchlist = perfil;
 	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer serieID) {
+	public void setId(Long serieID) {
 		this.id = serieID;
 	}
 	public String getNome() {

@@ -12,44 +12,85 @@ import com.si1.lab03.repository.SerieRepository;
 @Service
 public class SerieService {
 	
+	private SerieRepository serieRepository;
+
+
 	@Autowired
-	SerieRepository serieRepository;
-	
-	public Serie addSerie(Serie serie) {
-		return this.serieRepository.save(serie);
+	public SerieService(SerieRepository serieRepository) {
+		this.serieRepository = serieRepository;
+	}
+
+	public void addSerie(Serie serie) {
+		if (userHaveSerie(serie)) {
+			return;			
+		} else {
+			serieRepository.save(serie);
+		}
 	}
 	
-	public Serie removeSerie(Serie serie) {
-		serieRepository.delete(serie);
-		return serie;
-	}
-	
-	public Serie removeSerie(Integer serieID) {
-		Serie serie = getSerie(serieID);
-		serieRepository.delete(serie);
-		return serie;
-	}
-	
-	public Serie getSerie(Integer serieID) {
-		return serieRepository.findOne(serieID);
-	}
-	
-	public List<Serie> getSeries() {
-		return serieRepository.findAll();
-	}
-	
-	public Serie atualizaSerie(Serie serie) {
-		return this.serieRepository.save(serie);
-	}
-	
-	public List<Serie> getSeriesUsuario(Long idUsuario) {
-		List<Serie> seriesUsuario = new ArrayList<Serie>();
-		List<Serie> series = this.serieRepository.findAll();
-		for(Serie serie : series) {
-			if (serie.getIdUsuario().equals(idUsuario)) {
-				seriesUsuario.add(serie);
+	public void removeSerie(String imdbID, Long idUsuario) {
+		List<Serie> series = serieRepository.findAll();
+		for (Serie serie2 : series) {
+			if (serie2.getImdbId().equals(imdbID) && serie2.getIdUsuario().equals(idUsuario)) {
+				serieRepository.delete(serie2);	
+				System.out.println("aqui");
+			} else {
+
+				throw new RuntimeException();
 			}
 		}
-		return seriesUsuario;
+	
 	}
+	
+	public void addSerieWatchlist(Serie serie) {
+		if (userHaveSerie(serie)) {
+			return;			
+		} else {
+			serieRepository.save(serie);
+		}
+	}
+	
+	public void removeSerieWatchlist(String imdbID, Long idUsuario) {
+		List<Serie> series = serieRepository.findAll();
+		for (Serie serie2 : series) {
+			if (serie2.getImdbId().equals(imdbID) && serie2.getIdUsuario().equals(idUsuario)) {
+				serieRepository.delete(serie2);	
+			} else {
+				throw new RuntimeException();
+			}
+		}
+	
+	}
+	
+	public boolean userHaveSerie(Serie serie) {
+		List<Serie> series = serieRepository.findAll();
+		for (Serie serie2 : series) {
+			if (serie2.equals(serie)) {
+				return true;
+			}
+		} return false;
+	}
+	
+	public List<Serie> getSeries(Long idUsuario) {
+		List<Serie> series =  serieRepository.findAll();
+		List<Serie> profile = new ArrayList<>();
+		for (Serie serie : series) {
+			if (!serie.naWatchlist() && serie.getIdUsuario().equals(idUsuario)) {
+				profile.add(serie);
+			}
+		}
+		return profile;
+	} 
+	
+	public List<Serie> getSeriesWatchlist(Long idUsuario) {
+		List<Serie> series =  serieRepository.findAll();
+		List<Serie> watchlist = new ArrayList<>();
+		for (Serie serie : series) {
+			if (serie.naWatchlist() && serie.getIdUsuario().equals(idUsuario)) {
+				watchlist.add(serie);
+			}
+		}
+		return watchlist;
+	} 
+	
 }

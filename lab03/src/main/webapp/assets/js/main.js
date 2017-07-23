@@ -31,6 +31,7 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 	    $scope.profile = [];
 	    $scope.exibicao = [];
 	    $scope.watchlist = [];
+		
 	    var url = "/getin";
 	    var data = {
 	    		email: cemail,
@@ -118,6 +119,8 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 		    imdbId: serie.imdbID,
 		    nome: serie.Title,
 		    inWatchlist: $scope.inWatchlist,
+		    avaliacao: 0,
+		    ultimoEpisodio: 0
 		  };
 		  var url = "/saveWatchlist";
 		  $http.post(url, data).then(function (response) {
@@ -151,6 +154,8 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 		    imdbId: serie.imdbID,
 		    nome: serie.Title,
 		    inWatchlist: $scope.inWatchlist,
+		    avaliacao: 0,
+		    ultimoEpisodio: 0
 		  };
 		  var url = "/save";
 		  $http.post(url, data).then(function (response) {

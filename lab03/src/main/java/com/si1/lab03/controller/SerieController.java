@@ -1,8 +1,7 @@
 package com.si1.lab03.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,28 +12,39 @@ import com.si1.lab03.model.Serie;
 import com.si1.lab03.service.SerieService;
 
 @RestController
-@RequestMapping("/serie")
+@RequestMapping(value = "/")
 public class SerieController {
 	
-	@Autowired
 	private SerieService serieService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/")
-	public ResponseEntity<Serie> addSerie(Serie serie) {
-		Serie serieAdicionada = serieService.addSerie(serie);
-		return new ResponseEntity<>(serieAdicionada, HttpStatus.CREATED);
+	@RequestMapping(method = RequestMethod.POST, value = "/save")
+	public void addSeriePerfil(Serie serie) {
+		serieService.addSerie(serie);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public ResponseEntity<Serie> removeSerie(@PathVariable Integer serieId) {
-		Serie serieRemovida = serieService.removeSerie(serieId);
-		return new ResponseEntity<>(serieRemovida, HttpStatus.OK);
+	@RequestMapping(method = RequestMethod.DELETE, value = "/remove/{idUsuario}")
+	public void removeSeriePerfil(@RequestBody String imdbId, @PathVariable Long idUsuario) {
+		serieService.removeSerie(imdbId, idUsuario);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-	public ResponseEntity<Serie> atualizaSerie(@RequestBody Serie serie, @PathVariable Integer serieID) {
-		serie.setId(serieID);
-		Serie serieAtualizada = serieService.atualizaSerie(serie);
-		return new ResponseEntity<>(serieAtualizada, HttpStatus.OK);
+	@RequestMapping(method = RequestMethod.POST, value = "/saveWatchlist")
+	public void addSerieWatchlist(Serie serie) {
+		serieService.addSerie(serie);
 	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/removeWatchlist/{idUsuario}")
+	public void removeSerieWatchlist(@RequestBody String imdbId, @PathVariable Long idUsuario) {
+		serieService.removeSerie(imdbId, idUsuario);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/getSeries/{idUsuario}")
+	public List<Serie> getSeriesPerfil(@PathVariable Long idUsuario) {
+		return serieService.getSeries(idUsuario);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/getSeriesWatchlist/{idUsuario}")
+	public List<Serie> getSeriesWatchlist(@PathVariable Long idUsuario) {
+		return serieService.getSeriesWatchlist(idUsuario);
+	}
+	
 }
