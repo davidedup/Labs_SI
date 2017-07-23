@@ -15,7 +15,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/sigin")
+	@RequestMapping(method = RequestMethod.POST, value = "/getin")
 	public Usuario login(@RequestBody Usuario usuario) {
 		return usuarioService.login(usuario);
 	}

@@ -27,15 +27,15 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 	    });
 	};
 	  
-	$scope.login = function(cemail, cpassword){
+	$scope.login = function(email, password){
 	    $scope.profile = [];
 	    $scope.exibicao = [];
 	    $scope.watchlist = [];
 		
 	    var url = "/getin";
 	    var data = {
-	    		email: cemail,
-	    		password: cpassword
+	    		email: email,
+	    		password: password
 
 		};
 
@@ -58,7 +58,7 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 	}
 
 	$scope.seriesDoUsuario = function() {
-		var url = '/minhasSeries/' + $scope.usuarioLogado;
+		var url = '/getSeries/' + $scope.usuarioLogado;
 
 		$http.get(url).then(function (response) {
 			var seriesPerfil = response.data;
@@ -73,7 +73,7 @@ angular.module("lab03").controller("lab03Controller", function ($scope, $http, $
 	}
 
 	$scope.seriesDaWatchlist = function() {
-		var url = '/minhaWatchlist/' + $scope.usuarioLogado;
+		var url = '/getSeriesWatchlist/' + $scope.usuarioLogado;
 
 		$http.get(url).then(function (response) {
 		    var seriesWatchlist = response.data;
