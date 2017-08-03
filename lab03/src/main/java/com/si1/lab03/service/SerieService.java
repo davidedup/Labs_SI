@@ -14,7 +14,6 @@ public class SerieService {
 	
 	private SerieRepository serieRepository;
 
-
 	@Autowired
 	public SerieService(SerieRepository serieRepository) {
 		this.serieRepository = serieRepository;
@@ -22,7 +21,7 @@ public class SerieService {
 
 	public void addSerie(Serie serie) {
 		if (userHaveSerie(serie)) {
-			return;			
+			throw new RuntimeException();	
 		} else {
 			serieRepository.save(serie);
 		}
@@ -33,9 +32,7 @@ public class SerieService {
 		for (Serie serie2 : series) {
 			if (serie2.getImdbId().equals(imdbID) && serie2.getIdUsuario().equals(idUsuario)) {
 				serieRepository.delete(serie2);	
-				System.out.println("aqui");
 			} else {
-
 				throw new RuntimeException();
 			}
 		}
@@ -44,7 +41,7 @@ public class SerieService {
 	
 	public void addSerieWatchlist(Serie serie) {
 		if (userHaveSerie(serie)) {
-			return;			
+			throw new RuntimeException();		
 		} else {
 			serieRepository.save(serie);
 		}
@@ -59,7 +56,6 @@ public class SerieService {
 				throw new RuntimeException();
 			}
 		}
-	
 	}
 	
 	public boolean userHaveSerie(Serie serie) {

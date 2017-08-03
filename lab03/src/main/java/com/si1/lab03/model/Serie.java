@@ -1,5 +1,6 @@
 package com.si1.lab03.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,11 +11,23 @@ public class Serie {
 	@Id
 	@GeneratedValue()
 	private Long id;
+	
+	@Column(name="nome", nullable=false)
 	private String nome;
+	
+	@Column(name="imdbId", nullable=false)
 	private String imdbId;
+	
+	@Column(name="avaliacao", nullable=false)
 	private String avaliacao;
+	
+	@Column(name="ultimoEpisodio", nullable=false)
 	private Integer ultimoEpisodio;
+	
+	@Column(name="idUsuario", nullable=false)
 	private Long idUsuario;
+	
+	@Column(name="inWatchlist", nullable=false)
 	private boolean inWatchlist;
 	
 	
