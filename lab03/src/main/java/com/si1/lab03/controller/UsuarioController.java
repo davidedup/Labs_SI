@@ -12,6 +12,7 @@ import com.si1.lab03.service.UsuarioService;
 @RestController
 @RequestMapping(value = "/")
 public class UsuarioController {
+	
 	@Autowired
 	UsuarioService usuarioService;
 	

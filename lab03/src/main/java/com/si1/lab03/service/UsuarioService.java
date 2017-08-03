@@ -26,10 +26,10 @@ public class UsuarioService {
 	}
 
 	public Usuario login(Usuario user) {
-		if (validation(user.getEmail(), user.getSenha()) == null) {
+		if (validation(user.getEmail(), user.getPassword()) == null) {
 			throw new RuntimeException();
 		} else {
-			return validation(user.getEmail(), user.getSenha());
+			return validation(user.getEmail(), user.getPassword());
 		}
 
 	}
@@ -37,7 +37,7 @@ public class UsuarioService {
 	public Usuario validation(String email, String password) {
 		Usuario user = usuarioRepository.findByEmail(email);
 		if (user != null) {
-			if (user.getSenha().equals(password)) {
+			if (user.getPassword().equals(password)) {
 				return user;
 			}return null;
 		}
