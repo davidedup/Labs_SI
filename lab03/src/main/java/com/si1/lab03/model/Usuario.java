@@ -12,14 +12,14 @@ public class Usuario {
 	@GeneratedValue()
 	private Long id;
 	
-	@Column(name="nome", nullable=false)
-	private String nome;
+	@Column(name="name", nullable=false)
+	private String name;
 	
 	@Column(name="email", nullable=false)
 	private String email;
 	
-	@Column(name="senha", nullable=false)
-	private String senha;
+	@Column(name="password", nullable=false)
+	private String password;
 
 	public Long getId() {
 		return id;
@@ -29,14 +29,6 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -44,17 +36,25 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String toString() {
-		return "Usuario - "+this.getNome()+", "+this.getEmail()+", "+this.getSenha();
+		return "Usuario - " + this.getName() + ", " + this.getEmail() + ", " + this.getPassword();
 	}
 
 }
